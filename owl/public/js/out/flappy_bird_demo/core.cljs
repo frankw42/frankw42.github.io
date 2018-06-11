@@ -15,7 +15,7 @@
 ;--- Mouse click steps throught eye blink
 ;---
 
-;;; (js/alert "owl start ") 
+ ;;; (js/alert "owl start ") 
 
 (defn floor [x] (.floor js/Math x))
 
@@ -226,15 +226,15 @@
                              ;;(js/alert "owl fire???") 
                              (blinkToggle e)
                              )}   
-             [:img {:key "img1"  :src (str "../imgs/owl/background.png")  :style {:display "inline-block"  :position "absolute" } } ]       
+             [:img {:key "img1"  :src (str "/imgs/owl/background.png")  :style {:display "inline-block"  :position "absolute" } } ]       
              (when (= 0 eyes) (do     
-               [:img {:key "img1"  :src (str "../imgs/owl/background.png")  :style {:display "inline-block"  :position "absolute" } } ]
+               [:img {:key "img1"  :src (str "/imgs/owl/background.png")  :style {:display "inline-block"  :position "absolute" } } ]
              ))
              (when (= 1 eyes) (do
-                 [:img {:key "img2"  :src (str "../imgs/owl/blinkHalf-c.png") :style {:display "inline-block"          :position "absolute" :left 61 :top 38 } } ]
+                 [:img {:key "img2"  :src (str "/imgs/owl/blinkHalf-c.png") :style {:display "inline-block"          :position "absolute" :left 61 :top 38 } } ]
              ))
              (when (= 2 eyes) (do
-                 [:img {:key "img3"  :src (str "../imgs/owl/blinkFull-c.png") :style {:display "inline-block"  :position "absolute" :left 61 :top 38 } } ] 
+                 [:img {:key "img3"  :src (str "/imgs/owl/blinkFull-c.png") :style {:display "inline-block"  :position "absolute" :left 61 :top 38 } } ] 
              ))       
     ])
  )                    
