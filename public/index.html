@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <title>Owl Buddy</title>
+  <!-- script src="https://d3js.org/d3.v7.min.js"></script -->
+  <script src="vendor/jqwidgets/d3.min.js"></script>
+  <link rel="stylesheet" href="vendor/jqwidgets/styles/jqx.base.css" />
+  <link rel="stylesheet" href="vendor/jqwidgets/styles/jqx.material.css" />
+  <link rel="stylesheet" href="vendor/jqwidgets/styles/orange11.css" />
+  <!-- script src="https://code.jquery.com/jquery-3.6.0.min.js"></script  -->
+  <script src="vendor/jqwidgets/jquery-3.7.1.min.js"></script>
+  <script src="vendor/jqwidgets/jqxcore.js"></script>
+  <script src="vendor/jqwidgets/jqxbuttons.js"></script>
+  <script src="vendor/jqwidgets/jqxscrollbar.js"></script>
+  <script src="vendor/jqwidgets/jqxlistbox.js"></script>
+  <script src="vendor/jqwidgets/jqxdropdownbutton.js"></script>
+  <script src="vendor/jqwidgets/jqxdropdownlist.js"></script>
+
+
+  <style>
+
+.jqx-dropdownlist {
+  border-radius: 10px !important;
+  overflow: hidden;
+}
+
+#jqxMusicOptions {
+  background-image: url('butConvex8.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  font-size: 12px;
+  padding-top: 3px;
+}
+
+#jqxImageQuery {
+  background-image: url('butConvex8.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  font-size: 12px;
+  padding-top: 3px;
+}
+
+
+#blink-button {
+  background-image: url('butConvex8.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  color: black;
+}
+
+#tilt-button {
+  background-image: url('butConvex8.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  color: black;
+}
+
+#blink-button:active {
+  background-image: url('butConcave8.png');
+  color: white; /* text color when mouse is down */
+}
+
+#tilt-button:active {
+  background-image: url('butConcave8.png');
+  color: white; /* text color when mouse is down */
+}
+
+#blink-button {  box-shadow: none !important;  }
+#blink-button:hover { box-shadow: 2px 4px 10px 5px rgba(179, 98, 14, 0.90) !important; }
+
+#tilt-button {  box-shadow: none !important;  }
+#tilt-button:hover { box-shadow: 2px 4px 10px 5px rgba(179, 98, 14, 0.90) !important; }
+
+
+  body, html {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: sans-serif;
+    background-color: orange;
+    overflow: hidden;
+  }
+
+  .container {
+  position: absolute;
+   top: 0;
+    width: 320px;
+    height: 460px;
+
+    align-items: center;
+      border: 0px solid   #ccc;    /*blue;   /* #ccc;  */
+      background-color: transparent;   /*pink;  /* transparent; */
+     z-index: 0;
+  }
+
+  .layer-container {
+   top: 0px;
+    position: absolute;
+    width: 320px;
+    height: 454px; /* adjusted height to control button positioning */
+    border: 1px solid  #ccc;   /* black;   /* #ccc;  */
+    background-color: transparent;   /*green;  /* transparent; */
+         z-index: 22;
+  }
+
+  #owl-container {
+   top: 240px;
+    position: absolute;
+    width: 320px;
+    height: auto;
+         z-index: 3;
+  }
+
+  .image-button {
+    width: 150px;
+    height: 60px;
+    padding: 0;
+    border: none;
+    background: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .image-button img {
+    max-width: 100%;
+    max-height: 100%;
+    display: block;
+  }
+
+  .button-label {
+    position: absolute;
+    font-size: 16px;
+    pointer-events: none;
+    color: black;
+    margin-top: 4px;
+  }
+
+  .image-button:active .button-label {
+    color: white !important;
+  }
+
+  .blink-button {
+    position: absolute;
+    bottom: 10px;
+    left: 50px;
+    z-index: 11;
+  }
+
+  #tiltButton {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    z-index: 12;
+  }
+
+    #json-upload {
+    position: absolute;
+    bottom: 0px;
+    right: 10px;
+    z-index: 12;
+  }
+
+  #info-text {
+  transition: opacity 2s;
+  opacity: 0;                /* Start hidden */
+  background: transparent;
+}
+
+ .flipBookContainer {
+  width: 320px;
+  height: 219px;
+  position: absolute;
+  overflow: hidden;
+  display: block;
+}
+
+ .flipBookContainer img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  display: block;
+  margin: auto;
+  pointer-events: none;
+}
+
+  </style>
+
+</head>
+<body>
+<div class="container">
+
+  <div class="layer-container">
+
+    <div id="jqxImageQuery" style="position:absolute; top:10px; left:10px; z-index:20;"></div>
+    <div id="jqxMusicQuery" style="position:absolute; top:10px; right:10px; z-index:20;"></div>
+
+    <!-- Image area -->
+    <div id="owl-container"></div>
+
+    <div id="blink-button-container" ></div>
+    <div id="tilt-button-container" ></div>
+
+    <div id="info-button-container" style="z-index:4013;  width:92%; height:50%; position:absolute;
+     bottom:0px; right:10px; border:none; pointer-events:none;">     <!-- 2px solid #ffffff;" -->
+      <div id="info-text"   style="  color: white; z-index:4013; position:absolute; padding-left: 4px; pointer-events:none;" >
+        <div style="text-align: center;">Owl Buddy</div>
+        &nbsp; Flipbook of images listening to music.<br><br>
+      Retrieve a random image within a category using upper left dropdown.  Add a desired image to flipbook using Tilt button.
+      Start/stop flipbook with Blink button. Retrieve random audio track using the right dropdown.
+        <div style="font-size: 10px; text-align: center;">
+          &copy;2025 Frank Wroblewski
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="flipBookStack" style=" z-index:3000;"></div>
+
+</div>
+<!-- label for="json-upload" style=" z-index:5013;   font-size: 1.2em; font-weight: bold; color: #fff; background: #fbab12; padding: 8px 16px; border-radius: 6px; cursor: pointer;">
+  Up
+</label -->
+<input type="file" id="json-upload" accept="application/json" style="display:none; z-index: 1;" />
+
+<script src="/js/main.js"></script>
+<audio id="blink-sound" src="tawnyOwlShort.mp3" preload="auto"></audio>
+</body>
+</html>
