@@ -1,0 +1,3 @@
+
+
+(js/console.log "top z: " (.. top-img -style -zIndex))
